@@ -28,6 +28,7 @@ QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
 class canSnifferGUI(QMainWindow, canSniffer_ui.Ui_MainWindow):
     def __init__(self):
         super(canSnifferGUI, self).__init__()
+        self.BaudRateConstant = 500_000
         self.setupUi(self)
         self.portScanButton.clicked.connect(self.scanPorts)
         self.portConnectButton.clicked.connect(self.serialPortConnect)
@@ -462,7 +463,7 @@ class canSnifferGUI(QMainWindow, canSniffer_ui.Ui_MainWindow):
     def serialPortConnect(self):
         try:
             self.serialController.port = self.portSelectorComboBox.currentText()
-            self.serialController.baudrate = 250000
+            self.serialController.baudrate = self.BaudRateConstant
             self.serialController.open()
             self.serialReaderThread.start()
             self.serialWriterThread.start()
